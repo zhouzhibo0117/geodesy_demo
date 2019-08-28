@@ -17,7 +17,14 @@ void chatterCallback(const sensor_msgs::NavSatFixConstPtr &NavSatFixMsg)
 
     std::cout << std::fixed << std::setprecision(4) << " E " << utm_point.easting << " N " << utm_point.northing << " Z " << utm_point.altitude << '\n';
 
-    geographic_msgs::GeoPoint out_gps = geodesy::toMsg(utm_point);
+    geodesy::UTMPoint utm_point_test;
+    utm_point_test.band = utm_point.band;
+    utm_point_test.zone = utm_point.zone;
+    utm_point_test.easting = utm_point.easting;
+    utm_point_test.northing = utm_point.northing;
+    utm_point_test.altitude = utm_point.altitude;
+
+    geographic_msgs::GeoPoint out_gps = geodesy::toMsg(utm_point_test);
 
     std::cout << std::fixed << std::setprecision(4) << " Lat " << out_gps.latitude - NavSatFixMsg->latitude << " Long " << out_gps.longitude - NavSatFixMsg->longitude << " Z " << out_gps.altitude - NavSatFixMsg->altitude << '\n';
 }
